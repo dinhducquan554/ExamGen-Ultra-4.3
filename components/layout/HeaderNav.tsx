@@ -6,6 +6,7 @@ import { useToast } from "../../hooks/useToast";
 import { Page, User } from "../../types";
 import { useI18n } from "../../hooks/useI18n";
 import MachineIdModal from "../auth/MachineIdModal";
+import AiConfigModal from "../ai/AiConfigModal";
 
 interface HeaderNavProps {
   setCurrentPage: (page: Page) => void;
@@ -19,6 +20,7 @@ export default function HeaderNav({ setCurrentPage, handleLogout, currentUser, h
   const { t } = useI18n();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMachineIdModalOpen, setIsMachineIdModalOpen] = useState(false);
+  const [isAiConfigModalOpen, setIsAiConfigModalOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,7 +66,18 @@ export default function HeaderNav({ setCurrentPage, handleLogout, currentUser, h
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
+          {/* Nút Cấu hình API Key & Module AI cho mọi người dùng */}
+          <Button
+            variant="ghost"
+            onClick={() => setIsAiConfigModalOpen(true)}
+            className="flex items-center gap-1.5 text-amber-700 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-300 dark:border-amber-700/70 px-2.5 py-1.5 rounded-xl text-xs md:text-sm font-semibold shadow-xs transition-all hover:scale-[1.02]"
+            title={t('header.apiKeyConfigTitle', 'Cấu hình API Key & Mô hình AI')}
+          >
+            <KeySquare className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+            <span className="hidden sm:inline">{t('header.apiKeyConfig', 'Cấu hình API Key')}</span>
+          </Button>
+
           <Button
             variant="ghost"
             onClick={() => setCurrentPage('ai-tool')}
@@ -146,6 +159,12 @@ export default function HeaderNav({ setCurrentPage, handleLogout, currentUser, h
               <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-20">
                 <div className="py-1">
                   <button
+                    onClick={() => { setIsAiConfigModalOpen(true); setIsProfileMenuOpen(false); }}
+                    className="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
+                  >
+                    <KeySquare size={16} className="text-amber-500" /> {t('header.apiKeyConfig', 'Cấu hình API Key')}
+                  </button>
+                  <button
                     onClick={() => { setCurrentPage('my-account'); setIsProfileMenuOpen(false); }}
                     className="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
                   >
@@ -164,6 +183,7 @@ export default function HeaderNav({ setCurrentPage, handleLogout, currentUser, h
         </div>
       </header>
       <MachineIdModal isOpen={isMachineIdModalOpen} onClose={() => setIsMachineIdModalOpen(false)} />
+      <AiConfigModal isOpen={isAiConfigModalOpen} onClose={() => setIsAiConfigModalOpen(false)} />
     </>
   );
 }

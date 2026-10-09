@@ -20,6 +20,7 @@ import { useI18n } from '../../hooks/useI18n';
 import { GoogleGenAI, Type } from "@google/genai";
 import { useToast } from '../../hooks/useToast';
 import { useSystemInstruction } from '../../hooks/useSystemInstruction';
+import { useAdvancedSettings } from '../../hooks/useAdvancedSettings';
 
 interface ExamStructureWorkspaceProps {
     setExamData: (data: any) => void;
@@ -355,6 +356,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { addToast } = useToast();
     const { systemInstruction } = useSystemInstruction();
+    const { advSettings } = useAdvancedSettings();
 
     const handleMethodChange = (method: 'auto' | 'semiAuto' | 'manual') => {
         setActiveMethod(method);
@@ -370,7 +372,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
                 manualTopics: [
                     ...prev.manual.manualTopics,
                     {
-                        id: `topic-${Date.now()}`,
+                        id: `topic-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
                         topicName: `Chủ đề ${prev.manual.manualTopics.length + 1}`,
                         requirements: '',
                         questions: []
@@ -410,7 +412,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
                         questions: [
                             ...t.questions,
                             {
-                                id: `q-${Date.now()}`,
+                                id: `q-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
                                 questionType: 'multipleChoice',
                                 count: '0',
                                 points: '0.25',
@@ -478,7 +480,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
                 ...prev.manual.nguVanDocHieuPart,
                 questions: [
                     ...prev.manual.nguVanDocHieuPart.questions,
-                    { id: `nv-dh-${Date.now()}`, cognitiveLevel: 'Nhận biết', points: '0.5', requirements: '' }
+                    { id: `nv-dh-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, cognitiveLevel: 'Nhận biết', points: '0.5', requirements: '' }
                 ]
             }}
         }));
@@ -516,7 +518,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
                 ...prev.manual.nguVanVietPart,
                 questions: [
                     ...prev.manual.nguVanVietPart.questions,
-                    { id: `nv-v-${Date.now()}`, prompt: '', pointsBiet: '0.5', pointsHieu: '1.0', pointsVd: '0.5', pointsVdCao: '0' }
+                    { id: `nv-v-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, prompt: '', pointsBiet: '0.5', pointsHieu: '1.0', pointsVd: '0.5', pointsVdCao: '0' }
                 ]
             }}
         }));
@@ -864,7 +866,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
                 }
                 
                 const response = await ai.models.generateContent({
-                    model: 'gemini-2.5-pro',
+                    model: advSettings.aiModel || 'gemini-2.5-flash',
                     contents: prompt,
                     config: {
                         responseMimeType: "application/json",
@@ -962,7 +964,7 @@ YÊU CẦU ĐẦU RA: Kết quả trả về PHẢI là một đối tượng JS
                     };
 
                     const response = await ai.models.generateContent({
-                        model: 'gemini-2.5-pro',
+                        model: advSettings.aiModel || 'gemini-2.5-flash',
                         contents: fullExamPrompt,
                         config: {
                             responseMimeType: "application/json",
@@ -1027,7 +1029,7 @@ YÊU CẦU ĐẦU RA: Kết quả trả về PHẢI là một đối tượng JS
                         }
                         
                         const response = await ai.models.generateContent({
-                            model: 'gemini-2.5-pro',
+                            model: advSettings.aiModel || 'gemini-2.5-flash',
                             contents: { parts },
                             config: {
                                  responseMimeType: "application/json",
@@ -1069,7 +1071,7 @@ YÊU CẦU BẮT BUỘC:
 Ma trận: \`\`\`json\n${JSON.stringify(topics, null, 2)}\n\`\`\``;
                     
                     const qResponse = await ai.models.generateContent({
-                        model: 'gemini-2.5-pro',
+                        model: advSettings.aiModel || 'gemini-2.5-flash',
                         contents: questionsPrompt,
                         config: {
                              responseMimeType: "application/json",

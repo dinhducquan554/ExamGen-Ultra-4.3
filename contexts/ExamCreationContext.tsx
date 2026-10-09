@@ -73,12 +73,12 @@ const defaultAutoSemiAutoConfig: AutoSemiAutoConfig = {
 const defaultManualConfig: ManualConfig = {
   manualTopics: [
     {
-      id: `topic-${Date.now()}`,
+      id: 'topic-default-1',
       topicName: 'Chủ đề 1 (Ví dụ)',
       requirements: 'Học sinh có khả năng nhận biết và mô tả các khái niệm cơ bản về Este và Lipit.',
       questions: [
         {
-          id: `q-${Date.now()}`,
+          id: 'q-default-1',
           questionType: 'multipleChoice',
           count: '10',
           points: '0.25',
@@ -88,7 +88,7 @@ const defaultManualConfig: ManualConfig = {
           distVdCao: '0'
         },
         {
-          id: `q-${Date.now()+1}`,
+          id: 'q-default-2',
           questionType: 'essay',
           count: '1',
           points: '3.0',

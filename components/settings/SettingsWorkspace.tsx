@@ -216,10 +216,13 @@ const AiPanel: React.FC = () => {
                     <Select value={advSettings.aiModel} onValueChange={(v) => setAdvSettings({ aiModel: v as any })}>
                         <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="gemini-2.5-flash">Gemini 2.5 Flash</SelectItem>
+                            <SelectItem value="gemini-2.5-flash">Gemini 2.5 Flash (Khuyên dùng)</SelectItem>
                             <SelectItem value="gemini-2.5-pro">Gemini 2.5 Pro</SelectItem>
-                            <SelectItem value="gpt-4">GPT-4 (Coming soon)</SelectItem>
-                            <SelectItem value="claude-3">Claude 3 (Coming soon)</SelectItem>
+                            <SelectItem value="gemini-1.5-flash">Gemini 1.5 Flash</SelectItem>
+                            <SelectItem value="gemini-1.5-pro">Gemini 1.5 Pro</SelectItem>
+                            <SelectItem value="gemini-3.8-flash">Gemini 3.8 Flash</SelectItem>
+                            <SelectItem value="gpt-4" disabled>GPT-4 (Sắp có)</SelectItem>
+                            <SelectItem value="claude-3" disabled>Claude 3 (Sắp có)</SelectItem>
                         </SelectContent>
                     </Select>
                 </SettingItem>

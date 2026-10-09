@@ -26,6 +26,8 @@ export const vi = {
   'header.logout': 'Đăng xuất',
   'header.activateAccountTitle': 'Kích hoạt tài khoản',
   'header.activateAccountButton': 'Kích hoạt',
+  'header.apiKeyConfig': 'Cấu hình API Key',
+  'header.apiKeyConfigTitle': 'Cấu hình API Key & Mô hình AI',
   
   // Toasts
   'toasts.noNewNotifications': 'Chưa có thông báo mới.',

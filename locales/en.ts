@@ -26,6 +26,8 @@ export const en = {
   'header.logout': 'Logout',
   'header.activateAccountTitle': 'Activate Account',
   'header.activateAccountButton': 'Activate',
+  'header.apiKeyConfig': 'API Key Config',
+  'header.apiKeyConfigTitle': 'Configure API Key & AI Model',
 
   // Toasts
   'toasts.noNewNotifications': 'No new notifications.',

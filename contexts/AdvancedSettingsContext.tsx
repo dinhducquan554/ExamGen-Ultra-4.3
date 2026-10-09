@@ -15,7 +15,7 @@ export interface AdvancedSettings {
   // AI
   aiAssistant: boolean;
   automationLevel: 'manual' | 'suggested' | 'full';
-  aiModel: 'gemini-2.5-flash' | 'gemini-2.5-pro' | 'gpt-4' | 'claude-3';
+  aiModel: 'gemini-2.5-flash' | 'gemini-2.5-pro' | 'gemini-1.5-flash' | 'gemini-1.5-pro' | 'gemini-3.8-flash' | 'gpt-4' | 'claude-3' | string;
   aiLanguage: 'vi' | 'en';
   // Publishing
   defaultTemplate: string;

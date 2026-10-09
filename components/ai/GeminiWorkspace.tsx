@@ -88,8 +88,8 @@ export default function GeminiWorkspace({ updateTokenUsage }: GeminiWorkspacePro
     if (loading) return;
     setLoading(true);
     
-    const userMsg: Message = { id: Date.now(), role: "user", text: promptText, meta: "Bạn" };
-    const loadingMsg: Message = { id: `ai-${Date.now()}`, role: "assistant", text: "Đang xử lý...", meta: "Gemini" };
+    const userMsg: Message = { id: `user-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, role: "user", text: promptText, meta: "Bạn" };
+    const loadingMsg: Message = { id: `ai-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, role: "assistant", text: "Đang xử lý...", meta: "Gemini" };
 
     updateChatState({
         input: "",
@@ -164,8 +164,11 @@ export default function GeminiWorkspace({ updateTokenUsage }: GeminiWorkspacePro
                      <Select value={advSettings.aiModel} onValueChange={(v) => setAdvSettings({ aiModel: v as any })}>
                         <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="gemini-2.5-flash">Gemini 2.5 Flash</SelectItem>
+                            <SelectItem value="gemini-2.5-flash">Gemini 2.5 Flash (Khuyên dùng)</SelectItem>
                             <SelectItem value="gemini-2.5-pro">Gemini 2.5 Pro</SelectItem>
+                            <SelectItem value="gemini-1.5-flash">Gemini 1.5 Flash</SelectItem>
+                            <SelectItem value="gemini-1.5-pro">Gemini 1.5 Pro</SelectItem>
+                            <SelectItem value="gemini-3.8-flash">Gemini 3.8 Flash</SelectItem>
                             <SelectItem value="gpt-5" disabled>GPT-5 (Sắp có)</SelectItem>
                             <SelectItem value="claude-3" disabled>Claude 3 (Sắp có)</SelectItem>
                         </SelectContent>

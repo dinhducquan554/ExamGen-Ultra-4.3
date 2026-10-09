@@ -6,7 +6,7 @@ const CheckCircle2: React.FC<{ className?: string, size?: number }> = ({ classNa
 );
 
 interface ToastMessage {
-  id: number;
+  id: string;
   message: string;
 }
 
@@ -16,7 +16,7 @@ interface ToastContextType {
 
 export const ToastContext = createContext<ToastContextType | null>(null);
 
-const Toast: React.FC<{ id: number; message: string; onDismiss: (id: number) => void }> = ({ id, message, onDismiss }) => {
+const Toast: React.FC<{ id: string; message: string; onDismiss: (id: string) => void }> = ({ id, message, onDismiss }) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -44,7 +44,7 @@ const Toast: React.FC<{ id: number; message: string; onDismiss: (id: number) => 
     );
 }
 
-const ToastContainer: React.FC<{ toasts: ToastMessage[]; removeToast: (id: number) => void }> = ({ toasts, removeToast }) => {
+const ToastContainer: React.FC<{ toasts: ToastMessage[]; removeToast: (id: string) => void }> = ({ toasts, removeToast }) => {
   return (
     <div className="fixed bottom-5 right-5 z-[100] space-y-2">
       {toasts.map((toast) => (
@@ -54,15 +54,18 @@ const ToastContainer: React.FC<{ toasts: ToastMessage[]; removeToast: (id: numbe
   );
 };
 
+let toastCounter = 0;
+
 export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const addToast = useCallback((message: string) => {
-    const id = Date.now();
+    toastCounter += 1;
+    const id = `toast-${Date.now()}-${toastCounter}-${Math.random().toString(36).substring(2, 9)}`;
     setToasts((prevToasts) => [...prevToasts, { id, message }]);
   }, []);
 
-  const removeToast = useCallback((id: number) => {
+  const removeToast = useCallback((id: string) => {
     setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
   }, []);
 

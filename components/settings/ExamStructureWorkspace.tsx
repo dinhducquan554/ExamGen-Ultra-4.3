@@ -427,7 +427,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
                 manualTopics: [
                     ...prev.manual.manualTopics,
                     {
-                        id: `topic-${Date.now()}`,
+                        id: `topic-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
                         topicName: `Chủ đề ${prev.manual.manualTopics.length + 1}`,
                         requirements: '',
                         questions: []
@@ -467,7 +467,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
                         questions: [
                             ...t.questions,
                             {
-                                id: `q-${Date.now()}`,
+                                id: `q-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
                                 questionType: 'multipleChoice',
                                 count: '0',
                                 points: '0.25',
@@ -535,7 +535,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
                 ...prev.manual.nguVanDocHieuPart,
                 questions: [
                     ...prev.manual.nguVanDocHieuPart.questions,
-                    { id: `nv-dh-${Date.now()}`, cognitiveLevel: 'Nhận biết', points: '0.5', requirements: '' }
+                    { id: `nv-dh-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, cognitiveLevel: 'Nhận biết', points: '0.5', requirements: '' }
                 ]
             }}
         }));
@@ -573,7 +573,7 @@ export default function ExamStructureWorkspace({ setExamData, setCurrentPage, up
                 ...prev.manual.nguVanVietPart,
                 questions: [
                     ...prev.manual.nguVanVietPart.questions,
-                    { id: `nv-v-${Date.now()}`, prompt: '', pointsBiet: '0.5', pointsHieu: '1.0', pointsVd: '0.5', pointsVdCao: '0' }
+                    { id: `nv-v-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`, prompt: '', pointsBiet: '0.5', pointsHieu: '1.0', pointsVd: '0.5', pointsVdCao: '0' }
                 ]
             }}
         }));

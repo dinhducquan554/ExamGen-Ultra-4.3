@@ -109,6 +109,20 @@ function App() {
     }
   }, [users]);
 
+  // Sync API Key state if updated via header configuration modal
+  useEffect(() => {
+    const handleKeyUpdate = (e: any) => {
+      const newKey = e.detail !== undefined ? e.detail : localStorage.getItem(API_KEY_STORAGE_KEY);
+      setApiKey(newKey ? newKey : null);
+    };
+    window.addEventListener('examgen-api-key-updated', handleKeyUpdate);
+    window.addEventListener('storage', handleKeyUpdate);
+    return () => {
+      window.removeEventListener('examgen-api-key-updated', handleKeyUpdate);
+      window.removeEventListener('storage', handleKeyUpdate);
+    };
+  }, []);
+
   // Create a wrapped setCurrentUser that handles synchronization AND session persistence.
   const setCurrentUser = useCallback((userUpdater: React.SetStateAction<User | null>) => {
     _setCurrentUser(prevUser => {
